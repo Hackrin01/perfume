@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
         href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
     <style>
         * {
             margin: 0;
@@ -403,6 +405,154 @@
             font-size: 1rem;
             color: #b48b6b;
             font-weight: 500;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background: #0b0b0b;
+            color: #fff;
+        }
+
+        /* HEADER */
+        header {
+            background: rgba(0, 0, 0, 0.95);
+            padding: 20px 60px;
+            border-bottom: 1px solid gold;
+            position: sticky;
+            top: 0;
+        }
+
+        .menu {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: bold;
+            color: gold;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 25px;
+            position: relative;
+            font-size: 15px;
+        }
+
+        nav a::after {
+            content: "";
+            width: 0%;
+            height: 2px;
+            background: gold;
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+            transition: 0.4s;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* HERO */
+        .hero {
+            height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.9)),
+                url('https://images.unsplash.com/photo-1585386959984-a41552231658');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero h1 {
+            font-size: 50px;
+            color: gold;
+            letter-spacing: 2px;
+        }
+
+        .hero p {
+            margin-top: 10px;
+            color: #ccc;
+        }
+
+        .btn {
+            margin-top: 25px;
+            padding: 12px 30px;
+            border: none;
+            background: gold;
+            color: black;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            transform: scale(1.1);
+            background: white;
+        }
+
+        /* MAIN */
+        main {
+            padding: 50px 20px;
+        }
+
+        section {
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        .card {
+            background: #111;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 25px rgba(255, 215, 0, 0.4);
+        }
+
+        h2,
+        h3 {
+            color: gold;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #ccc;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        ul li {
+            margin-bottom: 8px;
+        }
+
+        .destaque {
+            text-align: center;
+            border: 1px solid gold;
+            background: linear-gradient(145deg, #111, #000);
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            border-top: 1px solid gold;
+            color: #aaa;
+            margin-top: 40px;
         }
     </style>
 </head>
@@ -445,18 +595,74 @@
     </div>
     <div id="toastMsg" class="toast-msg">✨ Adicionado ao nécessaire</div>
 
+    <div class="menu">
+        <div class="logo">PERFUME LUX</div>
+        <nav>
+            <a href="#">Início</a>
+            <a href="#">Masculinos</a>
+            <a href="#">Femininos</a>
+            <a href="#">Promoções</a>
+            <a href="#">Contato</a>
+        </nav>
+    </div>
+
     </header>
     <main>
+        <!-- HERO -->
+        <section class="hero">
+            <h1>Descubra Sua Essência</h1>
+            <p>Perfumes sofisticados para momentos inesquecíveis</p>
+            <button class="btn">Explorar</button>
+        </section>
 
+        <!-- CONTEÚDO -->
+        <section>
 
+            <div class="card">
+                <h2>O Universo dos Perfumes</h2>
+                <p>
+                    Perfumes vão além do aroma — são identidade, presença e memória.
+                    Cada fragrância conta uma história única e deixa uma marca por onde você passa.
+                </p>
+            </div>
+
+            <div class="card">
+                <h2>Tipos de Perfume</h2>
+                <ul>
+                    <li><strong>Parfum:</strong> Máxima fixação e luxo.</li>
+                    <li><strong>Eau de Parfum:</strong> Sofisticação equilibrada.</li>
+                    <li><strong>Eau de Toilette:</strong> Leve e versátil.</li>
+                    <li><strong>Eau de Cologne:</strong> Refrescante e suave.</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h2>Famílias Olfativas</h2>
+                <ul>
+                    <li>Cítricos — frescor e energia</li>
+                    <li>Florais — elegância e romantismo</li>
+                    <li>Amadeirados — intensidade e classe</li>
+                    <li>Orientais — luxo e mistério</li>
+                </ul>
+            </div>
+
+            <div class="card destaque">
+                <h2>Perfume em Destaque</h2>
+                <h3>Essence Gold</h3>
+                <p>
+                    Uma fragrância luxuosa com baunilha, âmbar e sândalo.
+                    Criado para quem deseja marcar presença com elegância.
+                </p>
+            </div>
+
+        </section>
     </main>
 
+    <!-- RODAPÉ -->
     <footer>
         <p>Geovanni Rodrigues Calado</p>
     </footer>
 
-
-    </div>
 </body>
 
 </html>
