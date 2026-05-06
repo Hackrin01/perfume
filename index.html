@@ -1,26 +1,462 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfume</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Essence Aromática | Menu de Perfumes</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #f9f5f0 0%, #f0e7df 100%);
+            font-family: 'Inter', sans-serif;
+            color: #2e241f;
+            line-height: 1.4;
+            padding: 2rem 1.5rem;
+            min-height: 100vh;
+        }
+
+        /* container principal do menu */
+        .menu-container {
+            max-width: 1350px;
+            margin: 0 auto;
+            background: rgba(255, 253, 250, 0.92);
+            backdrop-filter: blur(0px);
+            border-radius: 3.5rem;
+            box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.25), 0 2px 10px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            transition: all 0.2s ease;
+        }
+
+        /* cabeçalho luxuoso */
+        .menu-header {
+            background: #2c211c;
+            padding: 2rem 2.5rem 1.8rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .menu-header::before {
+            content: "✨";
+            font-size: 2.2rem;
+            position: absolute;
+            top: 0.8rem;
+            left: 2rem;
+            opacity: 0.8;
+        }
+
+        .menu-header::after {
+            content: "✨";
+            font-size: 2.2rem;
+            position: absolute;
+            top: 0.8rem;
+            right: 2rem;
+            opacity: 0.8;
+        }
+
+        .menu-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            font-size: 2.7rem;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #f3e7d3, #e9cfb1);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            text-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .menu-header .tagline {
+            color: #d9c5ae;
+            font-weight: 400;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            margin-top: 0.6rem;
+            text-transform: uppercase;
+            border-top: 1px solid rgba(217, 197, 174, 0.3);
+            display: inline-block;
+            padding-top: 0.7rem;
+        }
+
+        /* filtros / navegação por notas olfativas */
+        .filter-bar {
+            padding: 1.5rem 2rem 0.8rem 2rem;
+            background: #fffbf7;
+            border-bottom: 1px solid #f0e2d6;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.7rem;
+            align-items: center;
+        }
+
+        .filter-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #9b7c66;
+            background: #f5ede6;
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+        }
+
+        .filter-btn {
+            background: transparent;
+            border: 1px solid #e6d5c8;
+            padding: 0.5rem 1.2rem;
+            border-radius: 2rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #5b4436;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .filter-btn i {
+            margin-right: 6px;
+            font-size: 0.75rem;
+        }
+
+        .filter-btn.active {
+            background: #a77d5e;
+            border-color: #a77d5e;
+            color: white;
+            box-shadow: 0 4px 8px rgba(167, 125, 94, 0.2);
+        }
+
+        .filter-btn:hover:not(.active) {
+            background: #f2e5dc;
+            border-color: #c8af9a;
+            color: #3b2c24;
+        }
+
+        .search-box {
+            background: white;
+            border-radius: 2rem;
+            padding: 0.3rem 0.8rem;
+            display: flex;
+            align-items: center;
+            border: 1px solid #e6d5c8;
+            transition: all 0.2s;
+        }
+
+        .search-box i {
+            color: #b39377;
+            font-size: 0.9rem;
+        }
+
+        .search-box input {
+            border: none;
+            padding: 0.5rem 0.6rem;
+            font-size: 0.85rem;
+            width: 170px;
+            background: transparent;
+            outline: none;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* grade de perfumes (cards) */
+        .perfume-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.8rem;
+            padding: 2rem 2rem 2.5rem;
+            background: #fffbf7;
+        }
+
+        /* cartão individual */
+        .perfume-card {
+            background: white;
+            border-radius: 1.8rem;
+            overflow: hidden;
+            transition: transform 0.25s ease, box-shadow 0.3s;
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.03);
+            border: 1px solid #f5e8df;
+            cursor: pointer;
+        }
+
+        .perfume-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 25px 30px -12px rgba(86, 49, 30, 0.15);
+            border-color: #ecdacf;
+        }
+
+        .card-img {
+            height: 220px;
+            background-size: cover;
+            background-position: center 20%;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-start;
+            padding: 0.8rem;
+        }
+
+        .badge-family {
+            background: rgba(44, 33, 28, 0.75);
+            backdrop-filter: blur(4px);
+            padding: 0.25rem 0.9rem;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #f3e7dd;
+            letter-spacing: 0.5px;
+        }
+
+        .card-content {
+            padding: 1.2rem 1.2rem 1.3rem;
+        }
+
+        .perfume-name {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            font-size: 1.35rem;
+            color: #2c211c;
+            margin-bottom: 0.3rem;
+            line-height: 1.3;
+        }
+
+        .brand {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #b3927c;
+            font-weight: 600;
+            margin-bottom: 0.7rem;
+        }
+
+        .notes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 0.8rem 0;
+        }
+
+        .note {
+            background: #f8f0ea;
+            font-size: 0.7rem;
+            padding: 0.2rem 0.7rem;
+            border-radius: 40px;
+            color: #80624e;
+            font-weight: 500;
+        }
+
+        .price-cart {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+            border-top: 1px solid #f0e2d6;
+            padding-top: 0.9rem;
+        }
+
+        .price {
+            font-weight: 800;
+            font-size: 1.35rem;
+            color: #a47148;
+            letter-spacing: -0.5px;
+        }
+
+        .price small {
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: #8d6b51;
+        }
+
+        .cart-btn {
+            background: #2c211c;
+            border: none;
+            color: white;
+            padding: 0.45rem 0.9rem;
+            border-radius: 2rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+
+        .cart-btn i {
+            font-size: 0.8rem;
+        }
+
+        .cart-btn:hover {
+            background: #a77d5e;
+            transform: scale(0.96);
+        }
+
+        /* rodapé com carrinho minimalista */
+        .cart-footer {
+            background: #fcf7f2;
+            border-top: 1px solid #eedfcb;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .cart-info {
+            display: flex;
+            gap: 1.2rem;
+            align-items: baseline;
+        }
+
+        .cart-icon-badge {
+            background: #2c211c;
+            border-radius: 60px;
+            padding: 0.3rem 1rem;
+            color: #f2e1cf;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .cart-icon-badge i {
+            margin-right: 6px;
+        }
+
+        .total-cart {
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: #755c48;
+        }
+
+        .reset-cart {
+            background: none;
+            border: 1px solid #d9c2b0;
+            padding: 0.4rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .reset-cart:hover {
+            background: #e1cfc0;
+        }
+
+        .toast-msg {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #2c211cd9;
+            backdrop-filter: blur(8px);
+            color: #f6e7db;
+            padding: 0.7rem 1.5rem;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            z-index: 200;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+
+        @media (max-width: 650px) {
+            body {
+                padding: 1rem;
+            }
+
+            .perfume-grid {
+                padding: 1.5rem;
+                gap: 1.2rem;
+            }
+
+            .menu-header h1 {
+                font-size: 2rem;
+            }
+
+            .filter-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-box input {
+                width: 100%;
+            }
+        }
+
+        .no-results {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 3rem;
+            font-size: 1rem;
+            color: #b48b6b;
+            font-weight: 500;
+        }
+    </style>
 </head>
+
+
 <body>
     <div class="container">
+        <!-- header -->
         <header>
+            <div class="menu-header">
+                <h1>🌿 Essence Aromática</h1>
+                <div class="tagline">Menu Olfativo • Perfumes de Assinatura</div>
+            </div>
+
+            <div class="filter-bar">
+                <div class="filter-group">
+                    <span class="filter-label"><i class="fas fa-leaf"></i> Notas</span>
+                    <button data-filter="all" class="filter-btn active"><i class="fas fa-globe"></i> Todos</button>
+                    <button data-filter="floral" class="filter-btn"><i class="fas fa-fan"></i> Floral</button>
+                    <button data-filter="amadeirado" class="filter-btn"><i class="fas fa-tree"></i> Amadeirado</button>
+                    <button data-filter="citrico" class="filter-btn"><i class="fas fa-sun"></i> Cítrico</button>
+                    <button data-filter="oriental" class="filter-btn"><i class="fas fa-moon"></i> Oriental</button>
+                </div>
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="Buscar perfume ou marca...">
+                </div>
+            </div>
+
+            <div id="perfumeGrid" class="perfume-grid"></div>
+
+            <div class="cart-footer">
+                <div class="cart-info">
+                    <div class="cart-icon-badge"><i class="fas fa-shopping-bag"></i> <span id="cartCount">0</span> itens
+                    </div>
+                    <div class="total-cart">Total: <span id="cartTotal">R$ 0,00</span></div>
+                </div>
+                <button class="reset-cart" id="resetCartBtn"><i class="fas fa-trash-alt"></i> Limbar carrinho</button>
+            </div>
+    </div>
+    <div id="toastMsg" class="toast-msg">✨ Adicionado ao nécessaire</div>
+
+    </header>
+    <main>
 
 
-        </header>
-        <main>
+    </main>
 
-
-        </main>
-
-        <footer>
-            <p>Geovanni Rodrigues Calado</p>
-        </footer>
+    <footer>
+        <p>Geovanni Rodrigues Calado</p>
+    </footer>
 
 
     </div>
 </body>
+
 </html>
